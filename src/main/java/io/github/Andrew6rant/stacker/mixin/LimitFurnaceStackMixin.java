@@ -6,6 +6,7 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.slot.FurnaceFuelSlot;
 import net.minecraft.screen.slot.Slot;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(FurnaceFuelSlot.class)
 public abstract class LimitFurnaceStackMixin extends Slot {
@@ -22,7 +23,8 @@ public abstract class LimitFurnaceStackMixin extends Slot {
     public int getMaxItemCount(ItemStack stack) {
         return isBucket(stack) ? 1 : super.getMaxItemCount(stack);
     }
-    public boolean isBucket(ItemStack stack) {
+    @Unique
+    private boolean isBucket(ItemStack stack) {
         return stack.isOf(Items.BUCKET) || stack.isOf(Items.LAVA_BUCKET);
     }
 }
